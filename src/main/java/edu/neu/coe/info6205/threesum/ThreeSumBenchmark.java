@@ -33,9 +33,14 @@ public class ThreeSumBenchmark {
     }
 
     private void benchmarkThreeSum(final String description, final Consumer<int[]> function, int n, final TimeLogger[] timeLoggers) {
-        if (description.equals("ThreeSumCubic") && n > 4000) return;
         // FIXME
-        // END 
+        // END
+
+        if (description.equals("ThreeSumCubic") && n > 4000) return;
+
+
+
+
     }
 
     private final static TimeLogger[] timeLoggersCubic = {
