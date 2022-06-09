@@ -1,5 +1,7 @@
 package edu.neu.coe.info6205.threesum;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,8 +39,34 @@ public class ThreeSumQuadratic implements ThreeSum {
      */
     public List<Triple> getTriples(int j) {
         List<Triple> triples = new ArrayList<>();
+
+
         // FIXME : implement getTriples
-        // END 
+        // END
+
+
+        int p=0, q=length-1;
+        while(p<j && j<q )
+        {
+
+            if(a[p]+a[q]==-a[j])
+            {
+
+
+                triples.add(new Triple(a[p], a[j], a[q]));
+
+
+                while(p+1<q &&  a[p+1]==a[p]) p++;
+                while(q-1>p &&  a[q-1]==a[q]) q--;
+
+                p++;q--;
+
+            }
+           else if(a[p]+a[q]< -a[j]) p++;
+           else q--;
+        }
+
+
         return triples;
     }
 
