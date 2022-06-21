@@ -3,7 +3,10 @@
  */
 
 package edu.neu.coe.info6205.util;
+import java.util.*;
 
+import edu.neu.coe.info6205.graphs.BFS_and_prims.StdRandom;
+import edu.neu.coe.info6205.sort.elementary.InsertionSort;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -116,6 +119,8 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
      *                    Function f is the function whose timing you want to measure. For example, you might create a function which sorts an array.
      */
     public Benchmark_Timer(String description, Consumer<T> f) {
+
+
         this(description, null, f, null);
     }
 
@@ -125,4 +130,98 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
     private final Consumer<T> fPost;
 
     final static LazyLogger logger = new LazyLogger(Benchmark_Timer.class);
+    public static void main(String[] args) {
+        int m=25;
+        int initialLength=1000;
+        int MAX=1000000;
+        long x,y;
+        InsertionSort<Integer> insertSort=new InsertionSort<Integer>();
+        Consumer<Integer[]> consumer=array->insertSort.sort(array, 0, array.length);
+        Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<Integer[]>("Insertion Sort", consumer);
+
+        System.out.println("RANDOMLY ORDERED ARRAY");
+
+        for (int i = initialLength; i < 20000; i += i) {
+            int doublingLength=i;
+            x= System.nanoTime();
+            Supplier<Integer[]> supplier = () -> {  //Supplier to generate respective array
+                Integer[] a = new Integer[doublingLength];
+                for (int j = 0; j < doublingLength; j++)
+                    a[j] = StdRandom.uniform(-MAX, MAX);//Generating random numbers with uniform distribution
+                return a;
+            };
+            System.out.println("N= " + doublingLength +", Time Taken: " + benchmarkTimer.runFromSupplier(supplier, m));
+            y=System.nanoTime();
+            y=(y-x)/(long)Math.pow(10,8);
+            System.out.println("Nano Time : "+ y);
+            m=m*2;
+        }
+
+        System.out.print("\n");
+        System.out.println("ORDERED ARRAY");
+         m=25;
+        for (int i = initialLength; i < 20000; i += i) {
+            int doublingLength=i;
+            x= System.nanoTime();
+            Supplier<Integer[]> supplier = () -> { //Supplier to generate respective array
+                Integer[] a = new Integer[doublingLength];
+                for (int j = 0; j < doublingLength; j++)
+                    a[j] = StdRandom.uniform(-MAX, MAX);//Generating random numbers with uniform distribution
+                Arrays.sort(a);//Sorting
+                return a;
+            };
+
+            System.out.println("N= " + doublingLength +", Time Taken: " + benchmarkTimer.runFromSupplier(supplier, m));
+            y=System.nanoTime();
+            y=(y-x)/(long)Math.pow(10,8);
+            System.out.println("Nano Time : "+ y);
+            m=m*2;
+        }
+
+        System.out.print("\n");
+        System.out.println("PARTIALLY ORDERED ARRAY");
+        m=25;
+        for (int i = initialLength; i < 20000; i += i) {
+            int doublingLength=i;
+            x= System.nanoTime();
+            Supplier<Integer[]> supplier = () -> { //Supplier to generate respective array
+                Integer[] a = new Integer[doublingLength];
+                for (int j = 0; j < doublingLength; j++)
+                    a[j] = StdRandom.uniform(-MAX, MAX);//Generating random numbers with uniform distribution
+
+                Arrays.sort(a);//Sort
+
+                for (int j = 0; j < doublingLength/2; j++)
+                    a[j] = StdRandom.uniform(-MAX, MAX);//Generating random numbers half-way through  with uniform distribution
+
+                return a;
+            };
+            System.out.println("N= " + doublingLength +", Time Taken: " + benchmarkTimer.runFromSupplier(supplier, m));
+            y=System.nanoTime();
+            y=(y-x)/(long)Math.pow(10,8);
+            System.out.println("Nano Time : "+ y);
+            m=m*2;
+        }
+
+        System.out.print("\n");
+        System.out.println("REVERSE ORDERED ARRAY");
+        m=25;
+        for (int i = initialLength; i < 20000; i += i) {
+            int doublingLength=i;
+            x= System.nanoTime();
+            Supplier<Integer[]> supplier = () -> { //Supplier to generate respective array
+                Integer[] a = new Integer[doublingLength];
+                for (int j = 0; j < doublingLength; j++)
+                    a[j] = StdRandom.uniform(-MAX, MAX);//Generating random numbers with uniform distribution
+                Arrays.sort(a, Collections.reverseOrder());//Sorting in reverse order
+                return a;
+            };
+            System.out.println("N= " + doublingLength +", Time Taken: " + benchmarkTimer.runFromSupplier(supplier, m));
+            y=System.nanoTime();
+            y=(y-x)/(long)Math.pow(10,8);
+            System.out.println("Nano Time : "+ y);
+            m=m*2;
+        }
+    }
+
 }
