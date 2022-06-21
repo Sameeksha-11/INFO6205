@@ -154,12 +154,12 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
             y=System.nanoTime();
             y=(y-x)/(long)Math.pow(10,8);
             System.out.println("Nano Time : "+ y);
-            m=m*2;
+
         }
 
         System.out.print("\n");
         System.out.println("ORDERED ARRAY");
-         m=25;
+
         for (int i = initialLength; i < 20000; i += i) {
             int doublingLength=i;
             x= System.nanoTime();
@@ -175,12 +175,12 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
             y=System.nanoTime();
             y=(y-x)/(long)Math.pow(10,8);
             System.out.println("Nano Time : "+ y);
-            m=m*2;
+
         }
 
         System.out.print("\n");
         System.out.println("PARTIALLY ORDERED ARRAY");
-        m=25;
+
         for (int i = initialLength; i < 20000; i += i) {
             int doublingLength=i;
             x= System.nanoTime();
@@ -200,12 +200,12 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
             y=System.nanoTime();
             y=(y-x)/(long)Math.pow(10,8);
             System.out.println("Nano Time : "+ y);
-            m=m*2;
+
         }
 
         System.out.print("\n");
         System.out.println("REVERSE ORDERED ARRAY");
-        m=25;
+
         for (int i = initialLength; i < 20000; i += i) {
             int doublingLength=i;
             x= System.nanoTime();
@@ -220,7 +220,7 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
             y=System.nanoTime();
             y=(y-x)/(long)Math.pow(10,8);
             System.out.println("Nano Time : "+ y);
-            m=m*2;
+
         }
     }
 
